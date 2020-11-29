@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>backgroundColor</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+    <div id="app">
+        <div class="grad-box">
+            <div class="preview" :style="{backgroundImage: 'linear-gradient('+ direction +',  '+ colorOne +', '+ colorTwo +')' }">
+                preview
+            </div>
+        
+            <form action="">
+                <div class="form-group">
+                    <label for="">Direction</label>
+                    <input type="text" v-model="direction" />
+                    <i class="idirection" @click="showUlDirection">click here to Select Dir</i>
+                    <ul class="ulDirection" :style="{backgroundImage: 'linear-gradient('+ direction + ', '+ colorOne + ', '+ colorTwo + ')'} ">
+                        <span class="span1-li"   @click="hideUlDirection">X</span>
+                        <li data-dir="to right"  @click="updatdirection">to right</li>
+                        <li data-dir="to left"   @click="updatdirection">to left</li>
+                        <li data-dir="to top"    @click="updatdirection">to top</li>
+                        <li data-dir="to bottom" @click="updatdirection">to bottom</li>
+                    </ul>
+                </div>
+
+                <span>|</span>
+                <div class="form-group">
+                    <label for="">color one</label>
+                    <input class="input1" type="text" v-model="colorOne" />
+                    <i class="iColorOne" @click="showUlColorOne">click here to Select Color</i>
+                    <ul class="ulColorOne" :style="{backgroundImage: 'linear-gradient('+ direction + ', '+ colorOne + ', '+ colorTwo + ')'} ">
+                        <span class="span1-li" @click="hideUlColorOne">X</span>
+                        <li data-color="#de1620" @click="updateColorOne">#de1620</li>
+                        <li data-color="#aac401" @click="updateColorOne">#aac401</li>
+                        <li data-color="#f2cf51" @click="updateColorOne">#f2cf51</li>
+                        <li data-color="#0f0" @click="updateColorOne">#0f0</li>
+                        <li data-color="#7b9e00" @click="updateColorOne">#7b9e00</li>
+                    </ul>
+                </div>
+
+                <span>|</span>
+                <div class="form-group">
+                    <label for=" ">color two</label>
+                    <input class="input2" type="text " v-model="colorTwo"/>
+                    <i class="iColorTwo" @click="showUlColorTwo">click here to Select Color</i>
+                    <ul class="ulColorTwo" :style="{backgroundImage: 'linear-gradient('+ direction + ', '+ colorOne + ', '+ colorTwo + ')'} ">
+                        <span class="span2-li" @click="hideUlColorTwo">X</span>
+                        <li data-color="#00f" @click="updateColorTwo">#00f</li>
+                        <li data-color="#f00" @click="updateColorTwo">#f00</li>
+                        <li data-color="#808" @click="updateColorTwo">#808</li>
+                        <li data-color="#ff0" @click="updateColorTwo">#ff0</li>
+                        <li data-color="#0f0" @click="updateColorTwo">#0f0</li>
+                    </ul>
+                </div>
+            </form>
+            
+            <div class="result">
+                <span>RESULT: </span> background-image: linear-gradient( {{ direction }}, {{ colorOne }}, {{ colorTwo }} );
+            </div>
+            <div class="syntax">
+                <span>SYNTAX: </span> background-image: linear-gradient(direction, color-stop1, color-stop2);
+            </div>
+            
+        </div>
+
+    </div>
+    <script src="../vue-file/vue.js"></script>
+    <script>
+        let app = new Vue({
+            el: "#app",
+            data: {
+                direction: "to right",
+                colorOne: "#080",
+                colorTwo: "#f00",
+            },
+            methods: {
+                updatdirection(e) {
+                    this.direction = e.target.getAttribute("data-dir");
+                    e.target.parentElement.querySelectorAll(".active").forEach((a) => {
+                        a.classList.remove("active");
+                    });
+                    e.target.classList.add("active");
+                },
+                updateColorOne(e) {
+                    this.colorOne = e.target.getAttribute("data-color");
+                    document.querySelector(".input1").style.color = this.colorOne;
+                    e.target.parentElement.querySelectorAll(".active").forEach((a) => {
+                        a.classList.remove("active");
+                    });
+                    e.target.classList.add("active");
+                },
+                updateColorTwo(e) {
+                    this.colorTwo = e.target.getAttribute("data-color");
+                    document.querySelector(".input2").style.color = this.colorTwo;
+                    e.target.parentElement.querySelectorAll(".active").forEach((a) => {
+                        a.classList.remove("active");
+                    });
+                    e.target.classList.add("active");
+                },
+
+                showUlDirection() {
+                    document.querySelector(".ulDirection").classList.add("show");
+                },
+                showUlColorOne() {
+                    document.querySelector(".ulColorOne").classList.add("show");
+                    this.ff();
+                },
+                ff() {
+                    document.querySelectorAll(".ulColorOne li").forEach((li) => {
+                        li.style.backgroundColor = li.getAttribute("data-color");
+                    });
+                },
+
+                showUlColorTwo() {
+                    document.querySelector(".ulColorTwo").classList.add("show");
+                    this.fff();
+                },
+                fff() {
+                    document.querySelectorAll(".ulColorTwo li").forEach((li) => {
+                        li.style.backgroundColor = li.getAttribute("data-color");
+                    });
+                },
+
+                hideUlDirection() {
+                    document.querySelector(".ulDirection").classList.remove("show");
+                },
+                hideUlColorOne() {
+                    document.querySelector(".ulColorOne").classList.remove("show");
+                },
+                hideUlColorTwo() {
+                    document.querySelector(".ulColorTwo").classList.remove("show");
+                },
+           
+            },
+        });
+    </script>
+</body>
+
+</html>
